@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthAI - Disease Prediction</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7fafc;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .input-area {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .result-area {
+            margin-top: 20px;
+            background-color: #e2f8e2;
+            padding: 15px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="text-2xl font-bold">HealthAI - Disease Prediction</h1>
+            <p class="text-gray-600">Get insights based on your symptoms</p>
+        </div>
+        
+        <div class="input-area">
+            <h2 class="text-xl font-semibold">Describe Your Symptoms</h2>
+            <textarea id="symptoms-input" rows="4" placeholder="Enter your symptoms here..." 
+                class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+            <button id="predict-btn" class="mt-4 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition">
+                Predict Conditions
+            </button>
+        </div>
+
+        <div id="result-area" class="result-area hidden">
+            <h2 class="text-lg font-semibold">Potential Conditions</h2>
+            <div id="predictions" class="mt-2"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('predict-btn').addEventListener('click', function() {
+            const symptoms = document.getElementById('symptoms-input').value.trim();
+            const resultArea = document.getElementById('result-area');
+            const predictionsDiv = document.getElementById('predictions');
+
+            if (symptoms === "") {
+                alert("Please enter your symptoms.");
+                return;
+            }
+
+            // Simulate a prediction response (In a real application, this would be an API call)
+            const simulatedResponse = [
+                { condition: "Migraine", likelihood: "High", nextSteps: "Consider rest, hydration, and over-the-counter pain relief." },
+                { condition: "Viral Infection", likelihood: "Medium", nextSteps: "Monitor symptoms and stay hydrated." },
+                { condition: "Tension Headache", likelihood: "Medium", nextSteps: "Try relaxation techniques and pain relief." }
+            ];
+
+            // Clear previous results
+            predictionsDiv.innerHTML = "";
+
+            // Display predictions
+            simulatedResponse.forEach(prediction => {
+                const conditionDiv = document.createElement('div');
+                conditionDiv.className = "mt-2 p-2 border border-gray-300 rounded-md";
+                conditionDiv.innerHTML = `
+                    <strong>Condition:</strong> ${prediction.condition} <br>
+                    <strong>Likelihood:</strong> ${prediction.likelihood} <br>
+                    <strong>Next Steps:</strong> ${prediction.nextSteps}
+                `;
+                predictionsDiv.appendChild(conditionDiv);
+            });
+
+            resultArea.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
